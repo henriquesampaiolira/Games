@@ -6,46 +6,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Primeiro Game</title>
     <style>
-      .imagemGoogle{
-            position: relative;
-            top: 0px;
-            left: 0px;
+      #image{
+            position: absolute;
+
             width: 20px;
         }
-        p{
+        div{
             text-align: center;
         }
+        input{
+            width: 215px;
+        }
     </style>
-</head>
-<body onload="moving()">
-    <img class="imagemGoogle" onclick="diminui()" onmouseover="tenteDeNovo()" src="https://cdn1.iconfinder.com/data/icons/fs-icons-ubuntu-by-franksouza-/512/google-chrome.png">
-    <p><strong>Tente clicar na imagem.<br>BOA SORTE!!!</strong></p>
     <script>
-        var y = 0;
-      function diminui(){
-        y += 1;
-        console.log("Você está com " + y + " pontos.");
-        document.getElementsByTagName("p")[0].innerText="Você está com " + y + " pontos." ;
-      }
-     function move(){
-         let image=document.getElementsByTagName("img")[0];
-         image.style.position="absolute";
-        image.style.top=Math.random()*600+"px"; 
-         image.style.left=Math.random()*1300+"px";
-     }
-     function moving() { 
-         move();
-         setTimeout ( moving , 500 )
-     }
-    // Para trolar alguma pessoa é só tirar essa a função "tenteDeNovo" do comentário 
-    //  function tenteDeNovo(){
-    //     let image=document.getElementsByTagName("img")[0];
-    //     image.style.position="absolute";
-    //     image.style.top=Math.random()*600+"px"; 
-    //     image.style.left=Math.random()*1300+"px";
-    //  }
+        function pontos(obj, v){
+            obj.innerHTML=v;
+        }
+        function move(){
+            var obj=document.getElementById("image");
+            obj.style.left=(Math.random()*1200) + "px";
+            obj.style.top=(Math.random()*600) + "px";
+        }
+        function iniciar(){
+            var x=document.getElementById("valor").value;
+            console.log(x);
+            setInterval(move, x);
+        }
+        function reset(){
+            document.location.reload(true);
+        }
+        function addEventos(){
+            var obj=document.getElementById("image");
+            var ini=document.getElementsByTagName("button")[0];
+            var res=document.getElementsByTagName("button")[1];
+            var aumVel=document.getElementsByTagName("button")[1];
+            var dimVel=document.getElementsByTagName("button")[2];
+            var v=0
+            obj.addEventListener("click", function(event){
+                pontos(document.getElementById("text"), "Você tem " + (v+=1) + " pontos");
+            });
+            ini.addEventListener("click", iniciar);
+            res.addEventListener("click", reset);
+            // obj.addEventListener("mouseover", function(event){
+            //     move(obj, (Math.random()*600) + "px", (Math.random()*1200) + "px");
+            // })
+        }
+        
+        window.addEventListener("load", addEventos);
 
-      
     </script>
+</head>
+<body>
+    <img id="image" src="https://cdn1.iconfinder.com/data/icons/fs-icons-ubuntu-by-franksouza-/512/google-chrome.png">
+    <div>
+        <p id="text" ><strong>Tente clicar na imagem.<br>BOA SORTE!!!</strong></p>
+        <input id="valor" type="text" placeholder= "Digite em milissegundo.Ex:1000=1s">
+        <button>Iniciar</button>
+        <button>Resetar</button>
+    </div>
+
 </body>
 </html>

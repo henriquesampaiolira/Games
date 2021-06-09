@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KeyDown</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        div{
+            width: 100px;
+            height: 100px;
+            border: 1px solid;
+            position: relative;
+        }
+    </style>
+    <script>
+        var px=0;
+        var py=0;
+        
+        function ativando(){
+            var obj=document.getElementById("div");
+            document.addEventListener("keydown", ativado);
+            obj.style.backgroundColor="blue";
+            alert("Evento keydown ativado.")
+        }
+        function ativado(){
+            var obj=document.getElementById("div");
+            var tecla=event.keyCode;
+            //37 esquerda, 38 cima, 39 direita, 40 baixo
+            if(tecla==37){
+                px-=15;
+                obj.style.left=px+"px";
+            }
+            if(tecla==38){
+                py-=15;
+                obj.style.top=py+"px";
+            }
+            if(tecla==39){
+                px+=15;
+                obj.style.left=px+"px";
+            }
+            if(tecla==40){
+                py+=15;
+                obj.style.top=py+"px";
+            } 
+            if(tecla==13){
+                document.removeEventListener("keydown", ativado);
+                obj.style.backgroundColor="white";
+                alert("Evento keydown desativado.")
+            }
+        }
+        function addEventos(){
+            var obj=document.getElementById("div");
+            obj.addEventListener("click", ativando);
+            
+        }
+        window.addEventListener("load", addEventos)
+        
+        
+        
+    </script>
+</head>
+<body>
+    <div id="div"></div>
+</body>
+</html>
